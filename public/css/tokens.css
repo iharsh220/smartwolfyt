@@ -1,0 +1,97 @@
+/*
+ * Theme tokens — blocky Roblox-style game UI.
+ * Dark  = "night server" (deep navy sky, glowing eggs & fruits)
+ * Light = "day server"   (bright sky, grass, gold)
+ * --accent      egg gold (fills)        --accent-ink  gold for text (contrast-safe)
+ * --accent-2    devil-fruit purple      --accent-3    grass green
+ * --sea         Blox Fruits ocean       --outline     chunky dark outline + 3D edge
+ */
+:root {
+  --bg: #0a1230;
+  --bg-2: #0f1a40;
+  --surface: #15214f;
+  --surface-2: #1c2b62;
+  --surface-3: #263a7c;
+  --text: #f4f7ff;
+  --muted: #a9b6e0;
+  --line: rgba(255, 255, 255, 0.12);
+  --outline: #050a1f;
+
+  --accent: #ffcc00;
+  --accent-ink: #ffd84d;
+  --on-accent: #2a1a00;
+  --accent-2: #b45cff;
+  --accent-3: #2ee66b;
+  --sea: #1fb6ff;
+  --live: #ff3b3b;
+  --gold: #ffcc00;
+  --ok: #2ee66b;
+
+  --stud: rgba(255, 255, 255, 0.045);
+  --sky: linear-gradient(180deg, #0a1230 0%, #142a6b 60%, #1a3c8f 100%);
+  --hero-fade: linear-gradient(180deg, rgba(10, 18, 48, 0) 0%, rgba(10, 18, 48, 0.35) 60%, var(--bg) 100%);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 26px color-mix(in srgb, var(--accent) 45%, transparent);
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --edge: 5px;
+  --font: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Lilita One', 'Nunito', system-ui, sans-serif;
+  --topbar-h: 66px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --bg: #dff3ff;
+    --bg-2: #cbeaff;
+    --surface: #ffffff;
+    --surface-2: #eef7ff;
+    --surface-3: #d6ecff;
+    --text: #0f1d45;
+    --muted: #4a5b88;
+    --line: rgba(15, 29, 69, 0.14);
+    --outline: #0f1d45;
+    --accent: #ffc400;
+    --accent-ink: #9a5d00;
+    --on-accent: #2a1a00;
+    --accent-2: #8b2fe0;
+    --accent-3: #12a83e;
+    --sea: #0a8fe0;
+    --live: #e0142b;
+    --gold: #b77a00;
+    --ok: #0d8a34;
+    --stud: rgba(15, 29, 69, 0.05);
+    --sky: linear-gradient(180deg, #7fd0ff 0%, #b7e5ff 55%, #dff3ff 100%);
+    --hero-fade: linear-gradient(180deg, rgba(223, 243, 255, 0) 0%, rgba(223, 243, 255, 0.35) 60%, var(--bg) 100%);
+    --shadow: 0 16px 34px rgba(15, 29, 69, 0.16);
+    color-scheme: light;
+  }
+}
+
+:root[data-theme='light'] {
+  --bg: #dff3ff;
+  --bg-2: #cbeaff;
+  --surface: #ffffff;
+  --surface-2: #eef7ff;
+  --surface-3: #d6ecff;
+  --text: #0f1d45;
+  --muted: #4a5b88;
+  --line: rgba(15, 29, 69, 0.14);
+  --outline: #0f1d45;
+  --accent: #ffc400;
+  --accent-ink: #9a5d00;
+  --on-accent: #2a1a00;
+  --accent-2: #8b2fe0;
+  --accent-3: #12a83e;
+  --sea: #0a8fe0;
+  --live: #e0142b;
+  --gold: #b77a00;
+  --ok: #0d8a34;
+  --stud: rgba(15, 29, 69, 0.05);
+  --sky: linear-gradient(180deg, #7fd0ff 0%, #b7e5ff 55%, #dff3ff 100%);
+  --hero-fade: linear-gradient(180deg, rgba(223, 243, 255, 0) 0%, rgba(223, 243, 255, 0.35) 60%, var(--bg) 100%);
+  --shadow: 0 16px 34px rgba(15, 29, 69, 0.16);
+  color-scheme: light;
+}

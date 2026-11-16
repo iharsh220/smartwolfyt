@@ -1,0 +1,17 @@
+{
+  "name": "youtube-gaming-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "3D gaming portfolio for a YouTube channel with live alerts, best-of rankings and analytics.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

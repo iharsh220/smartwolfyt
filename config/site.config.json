@@ -1,0 +1,50 @@
+{
+  "tagline": "IT pro by day, Roblox streamer by passion 🐺 Steal an Egg heists, Blox Fruits boss fights, fruit tests, PvP & pure chaos — LIVE every day.",
+  "game": "Roblox",
+  "community": "Wolf",
+  "games": [
+    {
+      "id": "steal-an-egg",
+      "name": "Steal an Egg",
+      "emoji": "🥚",
+      "color": "#ffcc00",
+      "blurb": "Egg heists, mutations, mythic hatches & admin-abuse chaos.",
+      "match": ["steal an egg", "steal a egg", "stealanegg", "steal egg"]
+    },
+    {
+      "id": "blox-fruits",
+      "name": "Blox Fruits",
+      "emoji": "🍇",
+      "color": "#b45cff",
+      "blurb": "Boss fights, fruit tests, sea events, PvP & giveaways.",
+      "match": ["blox fruit", "bloxfruit", "bloxfurit", "blox furit", "fruit"]
+    },
+    {
+      "id": "more-roblox",
+      "name": "More Roblox",
+      "emoji": "🎮",
+      "color": "#2ee66b",
+      "blurb": "Rivals, Strongest Battlegrounds & whatever the pack votes for.",
+      "match": ["roblox", "rivals", "battlegrounds"]
+    }
+  ],
+  "schedule": {
+    "label": "Live every day",
+    "timezone": "IST",
+    "slots": [
+      { "days": "Weekdays", "time": "5:30 PM – 8:30 PM" },
+      { "days": "Weekends & holidays", "time": "10:30 AM – 1:30 PM" },
+      { "days": "Weekends & holidays", "time": "5:30 PM – 8:30 PM" }
+    ],
+    "note": "Hit Subscribe + the 🔔 bell so you get pinged the moment I go live."
+  },
+  "socials": {
+    "instagram": "https://www.instagram.com/smartwolf_yt/",
+    "discord": "https://discord.gg/smartwolfyt",
+    "kick": "https://kick.com/smartwolfyt",
+    "x": "",
+    "tiktok": "",
+    "email": "iharsh220@zohomail.in"
+  },
+  "sponsorEmail": "iharsh220@zohomail.in"
+}

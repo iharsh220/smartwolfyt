@@ -1,0 +1,33 @@
+# ── Secrets (never commit) ─────────────────────────────
+.env
+.env.*
+!.env.example
+client_secret*.json
+*.pem
+*.key
+
+# ── Dependencies ───────────────────────────────────────
+node_modules/
+
+# ── Runtime cache (Shorts detection results) ──────────
+.cache/
+
+# ── AI assistant notes (local only) ────────────────────
+CLAUDE.md
+.claude/
+
+# ── Logs ───────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+
+# ── OS / editor junk ───────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ── Deploy tool folders ────────────────────────────────
+.vercel/
+.render/
