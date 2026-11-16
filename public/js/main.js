@@ -1,4 +1,5 @@
-import { $$ } from './core/utils.js';
+import { $, $$ } from './core/utils.js';
+import { loaderStep, hideLoader, imageReady } from './core/loader.js';
 import { api } from './core/api.js';
 import { store } from './core/store.js';
 import { initTheme } from './core/theme.js';
@@ -51,12 +52,18 @@ async function boot() {
   initNavSpy();
   reveal();
 
+  // Start the big videos request right away, in parallel with channel/config.
+  loaderStep('Joining the server…', 15);
+  const videosReq = api.videos();
+  videosReq.catch(() => {}); // handled below; avoid an unhandled-rejection warning
+
   let config, channel;
   try {
     [config, channel] = await Promise.all([api.config(), api.channel()]);
   } catch (err) {
     console.error(err);
     showLibraryError();
+    hideLoader();
     return;
   }
   setGameMeta(config.games);
@@ -64,9 +71,11 @@ async function boot() {
   store.set('channel', channel);
   renderHero();
   renderAbout(channel, config);
+  loaderStep('Opening the inventory…', 45);
 
   try {
-    const data = await api.videos();
+    const data = await videosReq;
+    loaderStep('Hatching the eggs…', 85);
     store.set('data', data);
     renderHeroTotals(data);
     renderGames();
@@ -77,6 +86,10 @@ async function boot() {
     console.error(err);
     showLibraryError();
   }
+
+  // Reveal the page once the channel icon is painted too (max 2.5 s extra wait).
+  await imageReady($('#heroAvatar'));
+  hideLoader();
 
   loadTopComments();
   loadAnalytics();

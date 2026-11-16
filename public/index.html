@@ -24,7 +24,18 @@
   <link rel="stylesheet" href="/css/components.css" />
   <link rel="stylesheet" href="/css/sections.css" />
 </head>
-<body>
+<body class="is-loading">
+  <!-- Loader: visible until channel + videos are loaded (see js/core/loader.js) -->
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="loader-box">
+      <div class="loader-egg" aria-hidden="true"></div>
+      <div class="loader-shadow" aria-hidden="true"></div>
+      <p class="loader-title">SmartWolf</p>
+      <div class="loader-bar" aria-hidden="true"><span id="loaderBar"></span></div>
+      <p class="loader-step" id="loaderStep">Joining the server…</p>
+    </div>
+  </div>
+
   <a href="#main" class="skip">Skip to content</a>
 
   <header class="topbar">
