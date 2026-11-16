@@ -65,3 +65,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Hide host-injected badges / toolbars (e.g. Netlify "Powered by" badge or toolbar). */
+#nl-badge, .nl-badge, nl-badge, [id^="nl-badge"], [class^="nl-badge"],
+netlify-toolbar, #netlify-toolbar, #netlify-drawer, iframe[src*="netlify"][src*="toolbar"] {
+  display: none !important; visibility: hidden !important; pointer-events: none !important;
+}

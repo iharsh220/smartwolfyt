@@ -30,7 +30,19 @@ function initNavSpy() {
   for (const s of $$('main > section[id]')) io.observe(s);
 }
 
+/**
+ * Removes badges/toolbars that a host injects into the page (e.g. Netlify's "Powered by" badge).
+ * CSS in base.css hides them instantly; this also removes ones added later.
+ */
+function removeHostBadges() {
+  const SELECTOR = '#nl-badge, .nl-badge, nl-badge, [id^="nl-badge"], [class^="nl-badge"], netlify-toolbar, #netlify-toolbar, #netlify-drawer';
+  const sweep = () => document.querySelectorAll(SELECTOR).forEach((el) => el.remove());
+  sweep();
+  new MutationObserver(sweep).observe(document.documentElement, { childList: true, subtree: true });
+}
+
 async function boot() {
+  removeHostBadges();
   initTheme();
   initModal();
   initTilt();
