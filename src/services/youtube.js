@@ -7,6 +7,7 @@ const { parseDuration } = require('../lib/format');
 const { analyse } = require('./insights');
 
 const BASE = 'https://www.googleapis.com/youtube/v3';
+const SERVERLESS = Boolean(process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME);
 
 async function yt(endpoint, params) {
   const url = new URL(`${BASE}/${endpoint}`);
@@ -140,8 +141,11 @@ async function pool(items, limit, fn) {
 async function classify(videos) {
   const candidates = videos.filter((v) => !v.isStream && v.duration > 0 && v.duration <= 180);
   const before = shortCache.size;
+  // Serverless functions time out (~10 s on Netlify), so network checks get a time budget;
+  // anything not checked in time falls back to the duration/#shorts heuristic.
+  const deadline = Date.now() + (Number(process.env.SHORTS_CHECK_MS) || (SERVERLESS ? 2000 : 60_000));
   await pool(candidates, 32, async (v) => {
-    const r = await isShort(v.id);
+    const r = shortCache.has(v.id) || Date.now() < deadline ? await isShort(v.id) : null;
     v._short = r ?? (v.duration <= 60 || /#shorts?\b/i.test(`${v.title} ${v.description}`));
   });
   if (shortCache.size !== before) saveShortCache();
@@ -176,7 +180,15 @@ const getVideos = () =>
     const pending = [];
     let pageToken;
     let total = 0;
+    // On serverless hosts (Netlify ~10 s limit) stop paging after a time budget; the newest
+    // uploads come first, so only the oldest ones are left out until the next refresh.
+    const started = Date.now();
+    const pageBudget = Number(process.env.PAGE_BUDGET_MS) || (SERVERLESS ? 5500 : Infinity);
     do {
+      if (Date.now() - started > pageBudget) {
+        console.warn(`[videos] page budget hit after ${total} uploads — serving partial list`);
+        break;
+      }
       const d = await yt('playlistItems', { part: 'contentDetails', playlistId: ch.uploads, maxResults: 50, pageToken });
       const ids = (d.items || []).map((it) => it.contentDetails.videoId).slice(0, config.maxVideos - total);
       total += ids.length;

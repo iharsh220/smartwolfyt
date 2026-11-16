@@ -8,7 +8,8 @@ const yt = require('./src/services/youtube');
 const app = express();
 app.disable('x-powered-by');
 
-app.use('/api', apiRouter);
+// '/.netlify/functions/api' is the path the router sees when running as a Netlify Function.
+app.use(['/api', '/.netlify/functions/api'], apiRouter);
 app.use(express.static(path.join(config.root, 'public'), { maxAge: '1h', extensions: ['html'] }));
 app.use((req, res) => res.status(404).sendFile(path.join(config.root, 'public', 'index.html')));
 

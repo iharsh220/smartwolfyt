@@ -9,10 +9,21 @@ const { getAnalytics } = require('../services/analytics');
 const router = express.Router();
 const SITE_CONFIG = path.join(config.root, 'config', 'site.config.json');
 
-/** Wraps an async handler: JSON response, short browser cache, safe error message. */
+/**
+ * Browser cache + shared CDN cache. On Netlify the CDN answers repeat requests, so the
+ * function (and the YouTube quota) is hit at most once per `maxAge` instead of per visitor.
+ */
+function setCache(res, maxAge) {
+  res.set('Cache-Control', `public, max-age=${maxAge}`);
+  if (maxAge > 0) {
+    res.set('Netlify-CDN-Cache-Control', `public, durable, s-maxage=${maxAge}, stale-while-revalidate=${maxAge * 10}`);
+  }
+}
+
+/** Wraps an async handler: JSON response, caching, safe error message. */
 const handle = (fn, maxAge = 60) => async (req, res) => {
   try {
-    res.set('Cache-Control', `public, max-age=${maxAge}`);
+    setCache(res, maxAge);
     res.json(await fn(req));
   } catch (err) {
     console.error(`[api] ${req.originalUrl}: ${err.message}`);
@@ -38,7 +49,7 @@ router.get(
 );
 router.get('/analytics', async (req, res) => {
   try {
-    res.set('Cache-Control', 'public, max-age=600');
+    setCache(res, 600);
     res.json(await getAnalytics());
   } catch (err) {
     console.error(`[api] analytics: ${err.message}`);
